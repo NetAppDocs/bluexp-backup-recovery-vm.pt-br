@@ -1,0 +1,29 @@
+---
+permalink: task-unmount-datastores.html 
+sidebar: sidebar 
+keywords: mount, datastores 
+summary: A desinstalação de um datastore remove o acesso do host ao storage. 
+---
+= Desmontar armazenamentos de dados
+:allow-uri-read: 
+:experimental: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+Você pode desmontar um backup quando não precisar mais acessar os arquivos no datastore.
+
+.Passos
+. No cliente VMware vSphere, navegue para image:menu_icon.png[""] > *Inventory* > *Storage*.
+. No painel do navegador esquerdo, clique com o botão direito do Mouse em um datastore, selecione *Backup e recuperação do BlueXP  para VMs* na lista suspensa e, em seguida, selecione *Desmontar* na lista suspensa secundária.
++
+
+NOTE: Certifique-se de selecionar o datastore correto para desmontar. Caso contrário, você pode causar um impactos no trabalho de produção.
+
+. Na caixa de diálogo *Unmount Backup*, selecione um datastore, marque a caixa de seleção *Unmount the datastore* e clique em *Unmount*.
+. Opcional: Para verificar se o armazenamento de dados está desmontado, na barra de ferramentas do cliente VMware vSphere, clique em *Backup e recuperação do BlueXP  para VMs*.
++
+O datastore que você desmontou é exibido no bloco *atividades recentes* do painel.
+
+

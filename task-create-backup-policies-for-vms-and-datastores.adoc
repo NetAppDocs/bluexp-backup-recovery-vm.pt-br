@@ -1,0 +1,148 @@
+---
+permalink: task-create-backup-policies-for-vms-and-datastores.html 
+sidebar: sidebar 
+keywords: create, backup, policies, for VMs, datastores 
+summary: É necessário criar políticas de backup antes de usar o backup e a recuperação do BlueXP  para VMs para fazer backup de VMs e armazenamentos de dados. 
+---
+= Crie políticas de backup para VMs e armazenamentos de dados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+É necessário criar políticas de backup antes de usar o backup e a recuperação do BlueXP  para VMs para fazer backup de VMs e armazenamentos de dados.
+
+.Antes de começar
+* Você deve ter lido os pré-requisitos.
+* Você deve ter relacionamentos de storage secundário configurados.
++
+** Se você estiver replicando cópias Snapshot em um storage secundário de espelhamento ou cofre, os relacionamentos deverão ser configurados e os sistemas de storage dos volumes de origem e destino deverão ser registrados.
+** Para transferir cópias Snapshot com êxito para o storage secundário para relacionamentos Version-FlexibleMirror em um datastore NFS, verifique se o tipo de política SnapMirror é espelhamento assíncrono e se a opção "All_source_snapshots" está marcada.
+** Quando o número de cópias Snapshot no storage secundário (espelho-cofre) atingir o limite máximo, a atividade para Registrar backup e aplicar retenção na operação de backup falha com o seguinte erro: Essa cópia Snapshot é usada atualmente como cópia Snapshot de referência por um ou mais relacionamentos do SnapMirror. A exclusão da cópia Snapshot pode fazer com que operações futuras do SnapMirror falhem.
++
+Para corrigir esse problema, configure a política de retenção SnapMirror para o storage secundário para evitar alcançar o limite máximo de cópias Snapshot.
+
+
+
+* Se você quiser backups consistentes com VM, precisa ter as ferramentas VMware instaladas e em execução. As ferramentas da VMware são necessárias para silenciar as VMs.
+
+
+.Passos
+. No painel Navegador esquerdo do backup e recuperação do BlueXP  para VMs, clique em *políticas*.
+. Na página *políticas*, clique em *criar* para iniciar o assistente.
++
+image:vSphere client_policies.png[""]
+
+. Na página *Nova política de backup*, selecione o VMC na AWS que usará a política e insira o nome da política e uma descrição.
++
+** Carateres não suportados
++
+Não use os seguintes carateres especiais em nomes de VM, datastore, cluster, política, backup ou grupo de recursos: % E * / : * ? " > - | ; " , .
+
++
+Um caractere de sublinhado (_) é permitido.
+
++
+image:New backup policy.png[""]
+
+
+
+. Especifique as definições de frequência.
++
+A política especifica apenas a frequência de backup. O cronograma de proteção específico para backup é definido no grupo de recursos. Portanto, dois ou mais grupos de recursos podem compartilhar a mesma política e frequência de backup, mas têm agendas de backup diferentes.
+
+. Se você não quiser que o instantâneo seja adulterado, ative *bloqueio instantâneo* e especifique o período de bloqueio.
+. Especifique as definições de retenção.
++
+[IMPORTANT]
+====
+Você deve definir a contagem de retenção para backups de 2 ou superior se quiser habilitar a replicação do SnapVault. Se você definir a contagem de retenção para 1 backup para manter, a operação de retenção pode falhar. Isso ocorre porque a primeira cópia Snapshot é a cópia Snapshot de referência para a relação SnapVault até que a cópia Snapshot mais recente seja replicada para o destino.
+
+====
+. Nos campos *replicação*, especifique o tipo de replicação para armazenamento secundário, conforme mostrado na tabela a seguir:
++
+[cols="50,50"]
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Atualize o SnapMirror após a cópia de segurança
+ a| 
+Selecione esta opção para criar cópias espelhadas de conjuntos de backup em outro volume que tenha uma relação SnapMirror com o volume de backup primário. Se um volume for configurado com uma relação de cofre-espelho, você deve selecionar somente a opção *Atualizar SnapVault após o backup* se quiser que os backups sejam copiados para os destinos do cofre-espelho.
+
+
+
+ a| 
+Atualize o SnapVault após a cópia de segurança
+ a| 
+Selecione esta opção para executar a replicação de backup de disco para disco em outro volume que tenha uma relação de SnapVault com o volume de backup primário.
+
+[NOTE]
+====
+Se um volume estiver configurado com uma relação de cofre-espelho, você deverá selecionar somente essa opção se desejar que os backups sejam copiados para os destinos do cofre-espelho.
+
+====
+
+
+ a| 
+Etiqueta do instantâneo
+ a| 
+Insira um rótulo personalizado opcional a ser adicionado às cópias Snapshot do SnapVault e do SnapMirror criadas com esta política. O rótulo Snapshot ajuda a distinguir os snapshots criados com essa política de outros snapshots no sistema de storage secundário.
+
+[NOTE]
+====
+É permitido um máximo de 31 carateres para etiquetas de cópia Snapshot.
+
+====
+|===
+. *Opcional*: Nos campos Avançado, selecione os campos necessários. Os detalhes do campo Avançado estão listados na tabela a seguir.
++
+[cols="50,50"]
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Consistência da VM
+ a| 
+Marque esta caixa para silenciar as VMs e criar um snapshot do VMware sempre que a tarefa de backup for executada.
+
+[NOTE]
+====
+Você precisa ter ferramentas VMware em execução na VM para executar backups consistentes com VMs. Se o VMware Tools não estiver em execução, um backup consistente com falhas será executado.
+
+====
+[NOTE]
+====
+Ao marcar a caixa consistência da VM, as operações de backup podem levar mais tempo e exigir mais espaço de armazenamento. Nesse cenário, as VMs são primeiro silenciadas, depois a VMware executa um snapshot consistente da VM, depois o backup e a recuperação do BlueXP  para VMs executam sua operação de backup e, em seguida, as operações da VM são retomadas.
+
+====
+A memória convidada da VM não está incluída nos instantâneos de consistência da VM.
+
+
+
+ a| 
+Inclua datastores com discos independentes
+ a| 
+Marque esta caixa para incluir no backup todos os datastores com discos independentes que contenham dados temporários.
+
+
+
+ a| 
+Scripts
+ a| 
+Introduza o caminho totalmente qualificado do prescritor ou postscript que pretende que a cópia de segurança e a recuperação do BlueXP  para as VMs sejam executadas antes ou depois das operações de cópia de segurança. Por exemplo, você pode executar um script para atualizar traps SNMP, automatizar alertas e enviar logs. O caminho do script é validado no momento em que o script é executado.
+
+[NOTE]
+====
+Os Prescripts e postscripts devem estar localizados na VM do dispositivo virtual. Para inserir vários scripts, pressione Enter após cada caminho de script para listar cada script em uma linha separada. O caráter ";" não é permitido.
+
+====
+|===
+. Clique em *Add*.
++
+Você pode verificar se a política foi criada e revisar a configuração da política selecionando-a na página políticas.
+
+

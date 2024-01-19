@@ -1,0 +1,94 @@
+---
+permalink: task-restore-virtual-machines-from-amazon-fsx.html 
+sidebar: sidebar 
+keywords: restore, virtual machines, amazon fsx 
+summary: Ao restaurar uma Máquina Virtual, você pode substituir o conteúdo existente pela cópia de backup selecionada ou fazer uma cópia da Máquina Virtual. 
+---
+= Restaure máquinas virtuais do Amazon FSX
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ao restaurar uma Máquina Virtual, você pode substituir o conteúdo existente pela cópia de backup selecionada ou fazer uma cópia da Máquina Virtual.
+
+Você pode restaurar as VMs para os seguintes locais:
+
+* Restaurar a localização original
++
+** Para o datastore original montado no host ESXi original (isso substitui a VM original)
+
+
+* Restaurar para local alternativo
++
+** Para um datastore diferente montado no host ESXi original
+** Para o datastore original montado em um host ESXi diferente que é gerenciado pelo mesmo vCenter
+** Para um datastore diferente montado em um host ESXi diferente que é gerenciado pelo mesmo vCenter
+** Para um datastore diferente montado em um host ESXi diferente que é gerenciado por um vCenter diferente no modo vinculado
+
+
+
+
+.Antes de começar
+* Tem de existir uma cópia de segurança.
++
+Você deve ter criado um backup da máquina virtual usando o backup e a recuperação do BlueXP  para VMs antes de poder restaurar a máquina virtual.
+
++
+[NOTE]
+====
+As operações de restauração não podem ser concluídas com êxito se houver cópias Snapshot da Máquina Virtual que foram executadas por software diferente do backup e recuperação do BlueXP  para VMs.
+
+====
+* A Máquina Virtual não deve estar em trânsito.
++
+A máquina virtual que você deseja restaurar não deve estar em um estado de vMotion ou Storage vMotion.
+
+* Erros de configuração DE HA.
++
+Certifique-se de que não há erros de configuração de HA exibidos na tela Resumo do host do vCenter ESXi antes de restaurar backups para um local diferente.
+
+
+
+.Sobre esta tarefa
+* A Máquina Virtual não está registada e registada novamente.
++
+A operação de restauração de máquinas virtuais desRegistra a Máquina Virtual original, restaura a Máquina Virtual de uma cópia Snapshot de backup e Registra a Máquina Virtual restaurada com o mesmo nome e configuração no mesmo servidor ESXi. Você deve adicionar manualmente as máquinas virtuais aos grupos de recursos após a restauração.
+
+* Restaurando datastores
++
+Você não pode restaurar um datastore, mas pode restaurar qualquer Máquina Virtual no datastore.
+
+* Falhas de snapshot de consistência do VMware para uma máquina virtual.
++
+Mesmo que um snapshot de consistência da VMware para uma máquina virtual falhe, a máquina virtual é, no entanto, feita uma cópia de segurança. Você pode exibir as entidades contidas na cópia de backup no assistente de restauração e usá-la para operações de restauração.
+
+
+
+.Passos
+. Na barra de ferramentas do cliente VMware vSphere, clique em *Host and clusters* e selecione o sistema de armazenamento.
+. No painel Navegador esquerdo, clique com o botão direito do Mouse em uma *Máquina Virtual*, selecione *Backup e recuperação do BlueXP  para VMs* na lista suspensa e selecione *Restaurar* para iniciar o assistente.
+. No assistente *Restore*, na página *Select Backup*, selecione a cópia Snapshot de backup que deseja restaurar.
++
+Você pode pesquisar um nome de backup específico ou um nome de backup parcial ou filtrar a lista de backup clicando no ícone de filtro e selecionando um intervalo de data e hora, selecionando se deseja backups que contenham snapshots VMware, se deseja backups montados e o local. Clique em *OK* para retornar ao assistente.
+
+. Na página *Selecionar escopo*, selecione *Máquina Virtual inteira* no campo *Restaurar escopo*, selecione o local de restauração e insira as informações de destino onde o backup deve ser montado.
++
+No campo de nome da VM, se existir o mesmo nome da VM, o novo formato de nome da VM é '<vm_name>_<timestamp>'.
+
++
+Ao restaurar backups parciais, a operação de restauração ignora a página *Selecionar escopo*.
+
+. Enable *Restart VM* (Ativar *Reiniciar VM*) se pretender que a Máquina Virtual seja ligada após a operação de restauro.
+. Na página *Select Location* (Selecionar local), selecione o local para o datastore restaurado.
+. Revise a página *Summary* e clique em *Finish*.
+. *Opcional*: Monitore o progresso da operação clicando em *tarefas recentes* na parte inferior da tela.
+
+
+.Depois de terminar
+* Adicione máquinas virtuais restauradas aos grupos de recursos.
++
+Certifique-se de que a VM recém-restaurada esteja protegida. Se não estiver, proteja-o adicionando manualmente a VM restaurada aos grupos de recursos apropriados.
+
+

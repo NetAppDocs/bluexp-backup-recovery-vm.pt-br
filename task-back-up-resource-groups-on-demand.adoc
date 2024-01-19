@@ -1,0 +1,36 @@
+---
+permalink: task-back-up-resource-groups-on-demand.html 
+sidebar: sidebar 
+keywords: back up, resource, groups, demand 
+summary: As operações de backup são executadas em todos os recursos definidos em um grupo de recursos. Se um grupo de recursos tiver uma política anexada e uma programação configurada, os backups ocorrerão automaticamente de acordo com a programação. 
+---
+= Faça backup de grupos de recursos sob demanda
+:allow-uri-read: 
+:experimental: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+As operações de backup são executadas em todos os recursos definidos em um grupo de recursos. Se um grupo de recursos tiver uma política anexada e uma programação configurada, os backups ocorrerão automaticamente de acordo com a programação.
+
+.Antes de começar
+* Você deve ter criado um grupo de recursos com uma política anexada.
++
+[NOTE]
+====
+Não inicie uma tarefa de backup sob demanda quando uma tarefa para fazer backup e recuperação do BlueXP  para VMs banco de dados MySQL já estiver em execução. Use o console de manutenção para ver a programação de backup configurada para o banco de dados MySQL.
+
+====
++
+.Passos
+.. No painel Navegador esquerdo da página do cliente da Web do vCenter, clique em menu:Backup do BlueXP  e recuperação para VMs[grupos de recursos], selecione um grupo de recursos e clique em *Executar agora* para iniciar o backup.
++
+image:vSphere client_resource group.png[""]
+
+.. Se o grupo de recursos tiver várias políticas configuradas, na caixa de diálogo fazer backup agora, selecione a política que deseja usar para essa operação de backup.
+.. Clique em *OK* para iniciar a cópia de segurança.
+.. Se a operação do quiesce falhar em qualquer uma das máquinas virtuais no backup, o backup será concluído com um aviso e será marcado como não consistente Máquina Virtual, mesmo que a diretiva selecionada tenha consistência Máquina Virtual selecionada. Neste caso, é possível que algumas das máquinas virtuais tenham sido silenciadas com sucesso. No monitor de trabalhos, os detalhes da máquina virtual com falha mostrarão o quiesce como falhou.
+
+
+

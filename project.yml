@@ -1,0 +1,67 @@
+---
+settings:
+  name: BlueXP backup and recovery for VMs
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: pt-br,us-en,ja-jp,ko-kr,zh-cn,zh-tw,de-de,es-es,fr-fr,it-it
+sidebar:
+  entries:
+  - title: Backup e recuperação do BlueXP  para VMs docs
+    url: "/index.html"
+  - title: Notas de lançamento
+    entries:
+    - title: O que há de novo
+      url: "/whats-new.html"
+    - title: Limitações conhecidas
+      url: "/reference-limitations.html"
+  - title: Comece agora
+    entries:
+    - title: Saiba mais sobre o backup e a recuperação do BlueXP  para VMs
+      url: "/concept-bluexp-backup-and-recovery-for-virtual-machines-on-amazon-fsx.html"
+    - title: Fluxos de trabalho não suportados
+      url: "/concept-unsupported-workflows.html"
+  - title: Implante o backup e a recuperação do BlueXP  para VMs
+    entries:
+    - title: Requisitos e considerações
+      url: "/reference-requirements-and-considerations.html"
+    - title: Faça o download do OVA
+      url: "/task-download-the-open-virtual-appliance.html"
+    - title: Implante o backup e a recuperação do BlueXP  para VMs
+      url: "/task-deploy-bluexp-backup-and-recovery-for-vms.html"
+  - title: Faça backup do armazenamento de dados NFS no Amazon FSX
+    entries:
+    - title: Adicione armazenamento
+      url: "/task-add-storage.html"
+    - title: Criar políticas de backup
+      url: "/task-create-backup-policies-for-vms-and-datastores.html"
+    - title: Criar grupos de recursos
+      url: "/task-create-resource-groups.html"
+    - title: Faça backup de grupos de recursos sob demanda
+      url: "/task-back-up-resource-groups-on-demand.html"
+  - title: Montar e desmontar datastores
+    entries:
+    - title: Montar datastores
+      url: "/task-mount-datastores.html"
+    - title: Desmontar armazenamentos de dados
+      url: "/task-unmount-datastores.html"
+  - title: Anexe e separe VMDKs
+    entries:
+    - title: Anexe VMDKs a uma VM
+      url: "/task-attach-vmdks-vm.html"
+    - title: Separe um disco virtual
+      url: "/task-detach-virtual-disks.html"
+  - title: Restaure máquinas virtuais do Amazon FSX
+    url: "/task-restore-virtual-machines-from-amazon-fsx.html"
+  - title: Acesse APIs do REST
+    url: "/task-access-rest-apis.html"
+  - title: Conhecimento e apoio
+    entries:
+    - title: Registre-se para obter suporte
+      url: "/task-support-registration.html"
+    - title: Obtenha ajuda
+      url: "/task-get-help.html"
+  - title: Avisos legais
+    url: "/legal-notices.html"

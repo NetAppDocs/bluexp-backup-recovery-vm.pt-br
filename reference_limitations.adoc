@@ -1,0 +1,19 @@
+---
+permalink: reference-limitations.html 
+sidebar: sidebar 
+keywords: limitations 
+summary: Você deve estar ciente das limitações antes de usar o backup e a recuperação do BlueXP  para VMs. 
+---
+= Limitações conhecidas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+As limitações conhecidas identificam funções que não são suportadas por esta versão do produto ou que não interoperam corretamente com ele. Revise essas limitações com cuidado.
+
+* O backup e a recuperação do BlueXP  para VMs não oferecem suporte aos backups diários automáticos do Amazon FSX para ONTAP.
+* O limite máximo de armazenamentos de dados que podem ser montados são quatro.
+* O backup e a recuperação do BlueXP  para VMs mostram o local secundário duas vezes se o bloqueio de snapshot estiver ativado. Este problema foi corrigido no ONTAP 9.14.1RC1, ONTAP 9.13.1P4 - ONTAP 9.13.1P5 e ONTAP 9.12.1P8 - ONTAP 9.12.1P9.
+

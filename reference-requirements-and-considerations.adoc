@@ -1,0 +1,36 @@
+---
+permalink: reference-requirements-and-considerations.html 
+sidebar: sidebar 
+keywords: requirements, considerations 
+summary: Você precisa estar ciente de vários requisitos e considerações antes de usar o backup e a recuperação do BlueXP  para VMs. 
+---
+= Requisitos e considerações
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Você precisa estar ciente de vários requisitos e considerações antes de usar o backup e a recuperação do BlueXP  para VMs:
+
+* O backup e a recuperação do BlueXP  para VMs são implantados como uma VM Linux, independentemente de você usar o plug-in para proteger dados em sistemas Windows ou Linux.
+* Você deve implantar o backup e a recuperação do BlueXP  para VMs no VMC na AWS.
++
+Backup e recuperação do BlueXP  para VMs e VMC devem usar o mesmo fuso horário. As programações de backup são executadas no fuso horário em que o backup e a recuperação do BlueXP  para VMs são implantados. O VMC relata dados no fuso horário em que o VMC está localizado. Portanto, se o backup e a recuperação do BlueXP  para VMs e VMC estiverem em fusos horários diferentes, os dados no backup e recuperação do BlueXP  para o painel VMs podem não ser os mesmos que os dados nos relatórios.
+
+* Você não deve implantar o backup e a recuperação do BlueXP  para VMs em uma pasta que tenha um nome com carateres especiais.
++
+O nome da pasta não deve conter os seguintes carateres especiais
+
+* Você precisa implantar e Registrar uma instância separada e exclusiva de backup e recuperação do BlueXP  para VMs para cada VMC na AWS.
++
+** Cada VMC na AWS deve ser emparelhado com uma instância separada de backup e recuperação do BlueXP  para VMs.
+** Cada instância de backup e recuperação do BlueXP  para VMs deve ser implantada como uma VM Linux separada.
++
+Por exemplo, se você quiser executar backups de seis instâncias diferentes do VMC na AWS, precisará implantar seis instâncias de backup e recuperação do BlueXP  para instâncias de VMs em seis hosts e cada VMC na AWS deve ser emparelhado com uma instância exclusiva de backup e recuperação do BlueXP  para VMs.
+
+
+
+* No console vmc.vmware.com, abra as portas do firewall para permitir que o IP público do gateway de computação se comunique através do TCP 443 com o vCenter na rede de gerenciamento.
+* No console da AWS, você deve atualizar o grupo de segurança da VPC onde o FSX for ONTAP está sendo executado para permitir backup e recuperação do BlueXP  para VMs acessar o FSX for ONTAP.
+

@@ -1,0 +1,35 @@
+---
+permalink: task-detach-virtual-disks.html 
+sidebar: sidebar 
+keywords: mount, datastores 
+summary: Anexe uma ou mais VMDKs à VM. 
+---
+= Separe um disco virtual
+:allow-uri-read: 
+:experimental: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+Depois de conetar um disco virtual para restaurar arquivos individuais, você pode desanexar o disco virtual da VM pai.
+
+.Passos
+. No cliente VMware vSphere, navegue para image:menu_icon.png[""] > *Inventory* > *hosts and clusters*.
+. No painel do navegador esquerdo, clique com o botão direito do Mouse em uma *Máquina Virtual*, selecione *Backup e recuperação do BlueXP  para VMs* na lista suspensa e selecione *Desanexar disco(s) virtual(s)*.
+. Na caixa de diálogo *Desanexar disco Virtual*, selecione um ou mais discos que deseja desanexar e, em seguida, marque a caixa de seleção *Desanexar o(s) disco(s) selecionado(s) e clique em *Desanexar*.
+. Opcional: Monitore o progresso da operação na seção *Recent Tasks*.
++
+Atualize a tela para exibir informações atualizadas.
+
+. Verifique se o disco virtual está separado executando o seguinte:
++
+.. Clique em *Menu* na barra de ferramentas e selecione *VMs e modelos* na lista suspensa.
+.. No painel Navegador esquerdo, clique com o botão direito do Mouse em uma VM e selecione *Editar configurações* na lista suspensa.
+.. Na janela *Editar configurações*, expanda a lista de cada disco rígido para ver a lista de arquivos de disco.
++
+A página Editar configurações lista os discos na VM. Você pode expandir os detalhes de cada disco rígido para ver a lista de discos virtuais anexados.
+
+
+
+

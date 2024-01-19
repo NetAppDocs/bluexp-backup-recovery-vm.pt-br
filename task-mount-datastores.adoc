@@ -1,0 +1,36 @@
+---
+permalink: task-mount-datastores.html 
+sidebar: sidebar 
+keywords: mount, datastores 
+summary: A montagem de um datastore dá a um host acesso ao storage. 
+---
+= Montar datastores
+:allow-uri-read: 
+:experimental: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+Você pode montar um datastore a partir de um backup se quiser acessar arquivos no backup.
+
+.Antes de começar
+* Certifique-se de copiar o ID da organização e o token da API do portal VMC e adicioná-los às configurações do VMware Cloud Services.
+* Verifique se o host ESXi alternativo pode se conetar ao armazenamento
++
+Se você quiser montar em um host ESXi alternativo, certifique-se de que o host ESXi alternativo possa se conetar ao armazenamento e tenha o mesmo UID e GID que o host original.
+
+
+
+.Passos
+. No cliente VMware vSphere, navegue para image:menu_icon.png[""] > *Inventory* > *Storage*.
+. No painel do navegador esquerdo, clique com o botão direito do Mouse em um datastore, selecione *Backup e recuperação do BlueXP  para VMs* na lista suspensa e, em seguida, selecione *montar backup* na lista suspensa secundária.
+. Na página *Mount datastore*, selecione um local de backup e um local de backup (primário ou secundário) e clique em *Mount*.
+. Opcional: Para verificar se o armazenamento de dados está montado, na barra de ferramentas do cliente VMware vSphere, clique em *Backup e recuperação do BlueXP  para VMs*.
++
+O datastore que você montou é exibido no bloco *atividades recentes* do painel.
+
++
+Para impedir que novas cópias Snapshot sejam criadas ao clonar o volume, desative a programação do ONTAP para o volume SnapVault. Cópias Snapshot existentes anteriormente não são excluídas.
+
+

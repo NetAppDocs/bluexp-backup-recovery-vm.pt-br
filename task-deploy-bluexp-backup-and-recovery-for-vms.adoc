@@ -1,0 +1,124 @@
+---
+permalink: task-deploy-bluexp-backup-and-recovery-for-vms.html 
+sidebar: sidebar 
+keywords: deploy, bluexp, backup, recovery for VMs 
+summary: Para proteger VMs, armazenamentos de dados e bancos de dados consistentes com aplicações em máquinas virtualizadas, é necessário implantar o backup e a recuperação do BlueXP  para VMs. 
+---
+= Implante o backup e a recuperação do BlueXP  para VMs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para proteger VMs e armazenamentos de dados em máquinas virtualizadas, é necessário implantar o backup e a recuperação do BlueXP  para VMs.
+
+.Antes de começar
+Mais uma vez
+
+[NOTE]
+====
+A implantação DO OVA é suportada no VMware vCenter 8,0 e superior.
+
+====
+* Você deve ter lido os requisitos de implantação.
+* Você deve estar executando uma versão compatível do VMC na AWS.
+* Você precisa ter configurado e configurado seu ambiente VMC no AWS.
+* Você deve ter configurado um host ESXi para backup e recuperação do BlueXP  para VMs.
+* Você precisa ter baixado o backup e a recuperação do BlueXP  para o arquivo VMs `.tar`.
+* Você deve ter os detalhes de autenticação de login para sua instância VMC na AWS.
+* Você deve ter um certificado com arquivos de chave Pública e Privada válidos. Para obter mais informações, consulte artigos na seção Gerenciamento de certificados de armazenamento.
+* Você deve ter desconetado e fechado todas as sessões do navegador do cliente vSphere e excluído o cache do navegador para evitar qualquer problema de cache do navegador durante a implantação do backup e recuperação do BlueXP  para VMs.
+* Você deve ter habilitado o TLS (Transport Layer Security) no vCenter. Consulte a documentação da VMware.
+* Você precisa ter implantado o backup e a recuperação do BlueXP  para VMs no mesmo fuso horário que o vCenter.
+
+
+.Passos
+. Para o VMware vCenter 7.0.3 e versões posteriores, siga as etapas na seção Download da Open Virtual Appliance (OVA) para importar os certificados para o vCenter.
+. No seu navegador, navegue até o VMware vSphere vCenter.
+. Faça login na *Página de logon único do VMware vCenter*.
+. No painel Navegador, clique com o botão direito em qualquer objeto de inventário que seja um objeto pai válido de uma máquina virtual, como um datacenter, cluster ou host, e selecione *Deploy OVF Template* para iniciar o assistente de implantação do VMware.
+. Extraia o `.tar` arquivo, que contém o `.ova` arquivo em seu sistema local. Na página *Selecione um modelo OVF*, especifique a localização `.ova` do arquivo dentro da `.tar` pasta extraída.
+. Clique em *seguinte*.
+. Na página *Selecione um nome e pasta*, insira um nome exclusivo para a VM ou vApp e selecione um local de implantação e clique em *Avançar*.
++
+Esta etapa especifica onde importar o `.ova` arquivo para o vCenter. O nome padrão para a VM é o mesmo que o nome do arquivo selecionado `.ova`. Se você alterar o nome padrão, escolha um nome exclusivo em cada VMC na pasta VM da AWS.
+
++
+O local de implantação padrão para a VM é o objeto de inventário onde você iniciou o assistente.
+
+. Na página *Selecione um recurso*, selecione o recurso onde deseja executar o modelo de VM implantado e clique em *Avançar*.
+. Na página *Review details*, verifique os `.ova` detalhes do modelo e clique em *Next*.
+. Na página *contratos de licença*, marque a caixa de seleção *Aceito todos os contratos de licença*.
+. Na página *Select storage*, defina onde e como armazenar os arquivos para o modelo OVF implantado.
++
+.. Selecione o formato do disco para os VMDKs.
+.. Selecione uma política de armazenamento de VM.
++
+Esta opção só está disponível se as políticas de armazenamento estiverem ativadas no recurso de destino.
+
+.. Selecione um datastore para armazenar o modelo OVA implantado.
++
+O arquivo de configuração e os arquivos de disco virtual são armazenados no datastore.
+
++
+Selecione um datastore grande o suficiente para acomodar a máquina virtual ou vApp e todos os arquivos de disco virtual associados.
+
+
+
+. Na página *Selecionar redes*, faça o seguinte:
++
+.. Selecione uma rede de origem e mapeie-a para uma rede de destino.
++
+A coluna rede de origem lista todas as redes definidas no modelo OVA.
+
+.. Na seção *IP Allocation Settings*, selecione o protocolo IP necessário e clique em *Next*.
++
+O backup e a recuperação do BlueXP  para VMs oferecem suporte a uma interface de rede. Se você precisar de vários adaptadores de rede, você deve configurá-lo manualmente.
+
+
+
+. Na página *Personalizar modelo*, faça o seguinte:
++
+.. Na seção *Registre-se no vCenter* existente, insira o nome do vCenter e as credenciais do vCenter do dispositivo virtual.
++
+No campo *nome de usuário do vCenter*, insira o nome de usuário no formato domínio/nome de usuário.
+
+.. Na seção *criar backup e recuperação do BlueXP  para credenciais de VMs*, insira as credenciais locais.
++
+No campo *Nome de usuário*, insira o nome de usuário local; não inclua os detalhes do domínio.
+
++
+[IMPORTANT]
+====
+Anote o nome de usuário e a senha que você especificar. Você precisa usar essas credenciais se quiser modificar o backup e a recuperação do BlueXP  para a configuração de VMs posteriormente.
+
+====
+.. Introduza as credenciais para o utilizador de manutenção.
+.. Em *Setup Network Properties*, insira o nome do host.
++
+... Na seção *Setup IPv4 Network Properties* (Propriedades da rede), insira as informações da rede, como endereço IPv4, máscara de rede IPv4, gateway IPv4, DNS primário IPv4, DNS secundário IPv4 e domínios de pesquisa IPv4.
++
+[IMPORTANT]
+====
+Pode ignorar estas etapas e deixar as entradas em branco na secção Configurar Propriedades da rede, se pretender continuar com o DHCP como configuração da rede.
+
+====
+
+
+.. Em *Setup Date and Time*, selecione o fuso horário em que o vCenter está localizado.
+
+
+. Na página *Pronto para concluir*, revise a página e clique em *concluir*.
++
+Todos os hosts devem ser configurados com endereços IP (nomes de host FQDN não são suportados). A operação de implantação não valida sua entrada antes de implantar.
+
++
+Você pode exibir o andamento da implantação na janela tarefas recentes enquanto espera que as tarefas de importação e implantação do OVF sejam concluídas.
+
++
+Quando o backup e a recuperação do BlueXP  para VMs são implantados com sucesso, ele é implantado como uma VM Linux, registrado no vCenter e um cliente VMware vSphere é instalado.
+
+. Navegue até a VM onde o backup e a recuperação do BlueXP  para VMs foram implantados, clique na guia *Resumo* e, em seguida, clique na caixa *Liga* para iniciar o dispositivo virtual.
+. Enquanto o backup e a recuperação do BlueXP  para VMs estão sendo ativados, clique com o botão direito do Mouse no backup e recuperação do BlueXP  implantado para VMs, selecione *SO convidado* e clique em *Instalar ferramentas VMware*.
+

@@ -1,0 +1,150 @@
+---
+permalink: task-create-resource-groups.html 
+sidebar: sidebar 
+keywords: create, resource, groups 
+summary: Um grupo de recursos é o contentor para máquinas virtuais e datastores que você deseja proteger. 
+---
+= Criar grupos de recursos
+:allow-uri-read: 
+:experimental: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+Um grupo de recursos é o contentor para máquinas virtuais e datastores que você deseja proteger.
+
+Para todos os grupos de recursos, não adicione máquinas virtuais que estejam em um estado inacessível. Embora seja possível criar um grupo de recursos que contenha máquinas virtuais inacessíveis, os backups desse grupo de recursos falharão.
+
+.Sobre esta tarefa
+Você pode adicionar ou remover recursos de um grupo de recursos a qualquer momento.
+
+* Fazer backup de um único recurso
++
+Para fazer backup de um único recurso (por exemplo, uma única máquina virtual), você deve criar um grupo de recursos que contenha esse único recurso.
+
+* Fazer backup de vários recursos
++
+Para fazer backup de vários recursos, você deve criar um grupo de recursos que contenha vários recursos.
+
+* Otimização de cópias Snapshot
++
+Para otimizar cópias Snapshot, agrupe as máquinas virtuais e armazenamentos de dados associados ao mesmo volume em um grupo de recursos.
+
+* Políticas de backup
++
+Embora seja possível criar um grupo de recursos sem uma política de backup, você só pode executar operações agendadas de proteção de dados quando pelo menos uma política estiver anexada ao grupo de recursos. Você pode usar uma política existente ou criar uma nova política ao criar um grupo de recursos.
+
+* Verificações de compatibilidade
++
+O backup e a recuperação do BlueXP  para VMs executam verificações de compatibilidade quando você cria um grupo de recursos. Razões para incompatibilidade podem ser:
+
++
+** Os VMDKs estão em um storage sem suporte.
+** Um dispositivo PCI compartilhado é conetado a uma Máquina Virtual.
+
+
+
+
+.Passos
+. No painel Navegador esquerdo do backup e recuperação do BlueXP  para VMs, clique em *grupos de recursos*.
+. Na página *grupos de recursos*, clique em *criar* para iniciar o assistente.
++
+image:Resource group.png[""]
+
++
+Esta é a maneira mais fácil de criar um grupo de recursos. No entanto, você também pode criar um grupo de recursos com um recurso executando um dos seguintes procedimentos:
+
++
+** Para criar um grupo de recursos para uma máquina virtual, clique em menu:Menu[hosts and clusters], clique com o botão direito em uma máquina virtual, selecione backup e recuperação do BlueXP  para VMs e clique em *criar*.
+** Para criar um grupo de recursos para um datastore, clique em menu:Menu[hosts and clusters], em seguida, clique com o botão direito do Mouse em um datastore, selecione BlueXP  backup e recuperação para VMs e clique em *Create*.
+
+
+. Na página *General Info & Notification* (informações gerais e notificação) do assistente, introduza os valores necessários.
+. Na página *recursos*, faça o seguinte:
++
+[cols="50,50"]
+|===
+| Para este campo... | Faça isso... 
+
+
+ a| 
+Âmbito de aplicação
+ a| 
+Selecione o tipo de recurso que deseja proteger:
+
+** Armazenamentos de dados
+** Máquinas virtuais
+
+
+
+
+ a| 
+Data center
+ a| 
+Navegue até as máquinas virtuais ou armazenamentos de dados
+
+
+
+ a| 
+Entidades disponíveis
+ a| 
+Selecione os recursos que pretende proteger e, em seguida, clique em > para mover as suas seleções para a lista de entidades selecionadas
+
+|===
++
+Quando você clica em *Next*, o sistema verifica primeiro se o backup e a recuperação do BlueXP  para o gerencia e é compatível com o armazenamento no qual os recursos selecionados estão localizados.
+
++
+Se a mensagem <resource-name> selecionado não for BlueXP  backup e recuperação para VMs compatíveis for exibida, um recurso selecionado não será compatível com o backup e a recuperação do BlueXP  para VMs.
+
+. Na página *Spanning Disks*, selecione uma opção para máquinas virtuais com vários VMDKs em vários datastores:
++
+** Sempre exclua todos os armazenamentos de dados spanning [este é o padrão para armazenamentos de dados.]
+** Inclua sempre todos os armazenamentos de dados de abrangência [este é o padrão para máquinas virtuais.]
+** Selecione manualmente os armazenamentos de dados de abrangência a serem incluídos.
+
+
+. Na página *políticas*, selecione ou crie uma ou mais políticas de backup, conforme mostrado na tabela a seguir:
++
+[cols="50,50"]
+|===
+| Para usar... | Faça isso... 
+
+
+ a| 
+Uma política existente
+ a| 
+Selecione uma ou mais políticas na lista.
+
+
+
+ a| 
+Uma nova política
+ a| 
+.. Clique em *criar*.
+.. Conclua o assistente Nova Política de Backup para retornar ao assistente criar Grupo de recursos.
+
+
+|===
+. Na página *horários*, configure o agendamento de backup para cada política selecionada.
++
+No campo hora de início, introduza uma data e uma hora diferentes de zero. A data deve estar no formato dia/mês/ano. Você deve preencher cada campo. O backup e a recuperação do BlueXP  para VMs criam programações no fuso horário em que o backup e a recuperação do BlueXP  para VMs são implantados. Você pode modificar o fuso horário usando o backup e a recuperação do BlueXP  para a GUI VMs.
+
++
+image:Schedules.png[""]
+
+. Reveja o *resumo* e, em seguida, clique em *concluir*.
++
+Antes de clicar em concluir, pode voltar a qualquer página do assistente e alterar as informações.
+
++
+Depois de clicar em concluir, o novo grupo de recursos será adicionado à lista de grupos de recursos.
+
++
+[NOTE]
+====
+Se a operação do quiesce falhar em qualquer uma das máquinas virtuais no backup, o backup será marcado como não consistente Máquina Virtual, mesmo que a diretiva selecionada tenha consistência da Máquina Virtual selecionada. Neste caso, é possível que algumas das máquinas virtuais tenham sido silenciadas com sucesso.
+
+====
+

@@ -1,0 +1,51 @@
+---
+permalink: task-download-the-open-virtual-appliance.html 
+sidebar: sidebar 
+keywords: download, open virtual appliance 
+summary: 'Faça o download do OVA (Open Virtual Appliance) no VMware vCenter 8,0 e superior para implantar o backup e a recuperação do BlueXP  para VMs.' 
+---
+= Baixe o Open Virtual Appliance
+:allow-uri-read: 
+:experimental: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Faça o download do OVA (Open Virtual Appliance) no VMware vCenter 8,0 e superior para implantar o backup e a recuperação do BlueXP  para VMs.
+
+.Antes de começar
+Se o OVA assinado pelo certificado Entrust não for confiável, certifique-se de instalar e adicionar certificados intermediários ao vCenter.
+
+.Passos
+. Para fazer o download do backup e recuperação do BlueXP  para VMs OVA:
++
+.. Inicie sessão no https://mysupport.netapp.com/products/index.html["Site de suporte da NetApp"^]
+.. Na lista de produtos, selecione *Backup e recuperação do BlueXP  para VMs* e clique no botão *Download da versão mais recente*.
+.. Faça o download do backup e recuperação do arquivo de VMs do BlueXP  `.tar` em qualquer local.
+
+
+. Extraia o conteúdo do arquivo tar. O arquivo tar contém a pasta OVA e certs. A pasta certs contém certificados intermediários.
+. No cliente vSphere, navegue para *Administration > Certificates > Certificate Management*.
+. Ao lado de *certificados raiz confiáveis*, clique em *Adicionar*.
++
+
+NOTE: Por padrão, o certificado raiz está instalado.
+
++
+.. Vá para a pasta certs.
+.. Selecione os certificados intermédios.
+.. Instale cada certificado um de cada vez.
+
+
+. Os certificados são adicionados a um painel em certificados raiz confiáveis.
++
+Uma vez que os certificados são instalados, OVA pode ser verificado e implantado.
+
+
+
+[NOTE]
+====
+Se a OVA transferida não for adulterada, a coluna Publisher apresenta certificado fidedigno.
+
+====

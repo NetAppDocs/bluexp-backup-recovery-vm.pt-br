@@ -1,0 +1,41 @@
+---
+indexpage:
+  lead: O backup e a recuperação do BlueXP  para VMs é um dispositivo virtual autônomo
+    (formato aberto de dispositivo virtual) que oferece serviços de proteção de dados
+    para VMs e armazenamentos de dados no VMware Cloud na AWS e no Amazon FSX for
+    NetApp ONTAP.
+  tiles:
+  - title: Comece agora
+    links:
+    - title: Saiba mais sobre o backup e a recuperação do BlueXP  para VMs
+      url: concept-bluexp-backup-and-recovery-for-virtual-machines-on-amazon-fsx.html
+    - title: Fluxos de trabalho não suportados
+      url: concept-unsupported-workflows.html
+  - title: Implante o backup e a recuperação do BlueXP  para VMs
+    links:
+    - title: Faça o download do OVA
+      url: task-download-the-open-virtual-appliance.html
+    - title: Implante o backup e a recuperação do BlueXP  para VMs
+      url: task-deploy-bluexp-backup-and-recovery-for-vms.html
+  - title: Use o backup e a recuperação do BlueXP  para VMs
+    links:
+    - title: Adicione armazenamento
+      url: task-add-storage.html
+    - title: Criar políticas de backup
+      url: task-create-backup-policies-for-vms-and-datastores.html
+    - title: Criar grupos de recursos
+      url: task-create-resource-groups.html
+    - title: Faça backup de grupos de recursos sob demanda
+      url: task-back-up-resource-groups-on-demand.html
+    - title: Restaure máquinas virtuais do Amazon FSX
+      url: task-restore-virtual-machines-from-amazon-fsx.html
+  - title: Demos e tutoriais
+    links:
+    - title: Instale o backup e a recuperação do BlueXP  nas VMs
+      url: https://www.youtube.com/watch?v=kCuKY0fBf5U
+    - title: Faça backup do FSX para datastores e VMs ONTAP
+      url: https://www.youtube.com/watch?v=cLWOFm_3g3U
+    - title: Restaure o FSX para VMs e VMDKs do ONTAP datastores
+      url: https://www.youtube.com/watch?v=RVLYP0lguxkM
+    - title: Proteção de cargas de trabalho Oracle e MS SQL
+      url: https://community.netapp.com/t5/Tech-ONTAP-Blogs/Protect-Oracle-MS-SQL-workloads-using-NetApp-SnapCenter-in-VMware-Cloud-on-AWS/ba-p/449168
